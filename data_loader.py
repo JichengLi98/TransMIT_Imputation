@@ -3,9 +3,8 @@
 
 # Necessary packages
 import numpy as np
-#from utils import binary_sampler
 
-def data_loader (data_name, miss_rate):
+def data_loader(data_name, miss_rate):
   '''Loads datasets and introduce missingness.
   
   Args:
