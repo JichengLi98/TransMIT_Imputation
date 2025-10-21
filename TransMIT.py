@@ -1,18 +1,5 @@
 import tensorflow as tf
 
-def train_test_split(data, missing_matrix, train_size,s):
-  train = data[:train_size,:]
-  test = data[train_size-s:,:]
-  missing_train = missing_matrix[:train_size,:]
-  missing_test = missing_matrix[train_size-n_steps:,:]
-  train_mask = train*missing_train
-  test_mask = test*missing_test
-  #sliding window
-  train_x, train_y = split_sequences(train, n_steps)
-  train_x[:,-1,:] = train_mask[n_steps:,:] 
-return train_x, train_y, test, test_mask
-
-
 def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   '''Train
   
@@ -50,7 +37,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
 
   #
   train_mask = train*missing_train
-  train_x, train_y = split_sequences(train_data, s)
+  train_x, train_y = split_sequences_TransMIT(train_data, s)
   train_x[:,-1,:] = train_mask[s:,:]  
     
   # shuffle the training dataset
@@ -64,7 +51,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   mask = tf.keras.layers.Lambda(lambda x: tf.cast(tf.math.not_equal(x, 0), tf.float32))(inputs)
   mask = mask[:,-1,:]
   Inputs = tf.keras.layers.Dense(d_model)(inputs)
-  Inputs_t = Permute((2, 1))(inputs)
+  Inputs_t = tf.keras.layersPermute((2, 1))(inputs)
   Inputs_t = tf.keras.layers.Dense(d_model)(Inputs_t)
   x = Inputs
   x_t = Inputs_t
@@ -81,7 +68,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
       x_t = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x_t + ffn_output)
       
   x_t = tf.keras.layers.Dense(seq_length)(x_t)
-  x_t = Permute((2, 1))(x_t)
+  x_t = tf.keras.layers.Permute((2, 1))(x_t)
   outputs = tf.keras.layers.Concatenate(axis=-1)([x, x_t])
   outputs = tf.keras.layers.GlobalAveragePooling1D()(outputs)
   outputs = tf.keras.layers.Dense(num_features)(outputs)
@@ -102,7 +89,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
       
   adam = tf.keras.optimizers.Adam(learning_rate=lr)
   model.compile(loss= RMSE_TransMIT, optimizer=adam)
-  es = EarlyStopping(monitor='val_loss', mode='min', verbose=1,patience=5)
+  es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', mode='min', verbose=1,patience=5)
   # Train the model
   Epochs = epochs
   trainsize = int(round(train_x.shape[0] * 0.8)/Epochs)*Epochs
