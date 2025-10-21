@@ -23,14 +23,11 @@ def data_loader(data_name, miss_rate):
   data_x = np.loadtxt(file_name, delimiter=",")     # no header
   data_m = np.loadtxt(missing_file_name, delimiter=",")
 
-  # Parameters
-  no, dim = data_x.shape
-
   # Introduce missing data
-  miss_data_x = data_x.copy()
-  miss_data_x[data_m == 0] = np.nan
+  # miss_data_x = data_x.copy()
+  # miss_data_x[data_m == 0] = np.nan
       
-  return data_x, miss_data_x, data_m
+  return data_x, data_m
 
   
 
