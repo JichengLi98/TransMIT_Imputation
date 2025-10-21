@@ -30,6 +30,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   s = TransMIT_parameters['s']
   d_model = TransMIT_parameters['d_model']
   d_q = TransMIT_parameters['d_q']
+  num_layers = TransMIT_parameters['num_layers']
   num_heads = TransMIT_parameters['num_heads']
   #
   seq_length = s+1
