@@ -56,7 +56,7 @@ def main (args):
   
   # Evaluate the model performance on the test datast
   s = args.s
-  rmse, mae = online_imputation(model,test_data,data_m_test,s)
+  rmse, mae = online_imputation(model,data_test,data_m_test,s)
   
   print()
   print('RMSE Performance: ' + str(np.round(rmse, 3)) + ', MAE Performance: ' + str(np.round(mae, 3)))
