@@ -54,7 +54,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   mask = tf.keras.layers.Lambda(lambda x: tf.cast(tf.math.not_equal(x, 0), tf.float32))(inputs)
   mask = mask[:,-1,:]
   Inputs = tf.keras.layers.Dense(d_model)(inputs)
-  Inputs_t = tf.keras.layersPermute((2, 1))(inputs)
+  Inputs_t = tf.keras.layers.Permute((2, 1))(inputs)
   Inputs_t = tf.keras.layers.Dense(d_model)(Inputs_t)
   x = Inputs
   x_t = Inputs_t
