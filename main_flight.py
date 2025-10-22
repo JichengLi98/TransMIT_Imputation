@@ -24,17 +24,6 @@ def main (args):
   
   data_name = args.data_name
   miss_rate = args.miss_rate
-
-  TransMIT_parameters = {'train_size':args.train_size,
-                         'batch_size':args.batch_size,
-                         'lr':args.lr,
-                         'epochs':args.epochs,
-                         'alpha':args.alpha,
-                         's':args.s,
-                         'd_model':args.d_model,
-                         'd_q':args.d_q,
-                         'num_layers':args.num_layers,
-                         'num_heads':args.num_heads}
   
   # Load data and introduce missingness
   data_x, data_m = data_loader(data_name, miss_rate)
@@ -52,6 +41,16 @@ def main (args):
   data_train = scaler.fit_transform(train_data)
   data_test = scaler.transform(test_data)
 
+  TransMIT_parameters = {'train_size':train_size,
+                         'batch_size':args.batch_size,
+                         'lr':args.lr,
+                         'epochs':args.epochs,
+                         'alpha':args.alpha,
+                         's':args.s,
+                         'd_model':args.d_model,
+                         'd_q':args.d_q,
+                         'num_layers':args.num_layers,
+                         'num_heads':args.num_heads}  
   # Train model
   model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
@@ -62,17 +61,6 @@ def main (args):
   print('RMSE Performance: ' + str(np.round(rmse, 3)) + ', MAE Performance: ' + str(np.round(mae, 3)))
   
   return rmse, mae
-
-  TransMIT_parameters = {'train_size':args.train_size,
-                         'batch_size':args.batch_size,
-                         'lr':args.lr,
-                         'epochs':args.epochs,
-                         'alpha':args.alpha,
-                         's':args.s,
-                         'd_model':args.d_model,
-                         'd_q':args.d_q,
-                         'num_layers':args.num_layers,
-                         'num_heads':args.num_heads}
 
 if __name__ == '__main__':  
   
@@ -88,11 +76,6 @@ if __name__ == '__main__':
       help='missing data probability',
       default=0.1,
       type=float)
-  parser.add_argument(
-      '--train_size',
-      help='train_size',
-      default= 100,
-      type=int)
   parser.add_argument(
       '--batch_size',
       help='batch_size',
