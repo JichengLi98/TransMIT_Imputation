@@ -42,9 +42,9 @@ def online_imputation(model, test_data,data_m_test,s):
     X_hat = np.array(X_hat) 
     X_hat = X_hat.reshape((X_hat.shape[0],X_hat.shape[2]))    
 
-    count_zeros = np.count_nonzero(mask_test[s:,:] == 0)
-    rmse = tf.sqrt(tf.math.reduce_sum(tf.math.square(tf.math.multiply(test_data[s:,:], 1-mask_test[s:,:]) - tf.math.multiply(X_hat, 1-mask_test[s:,:])))/count_zeros)
-    mae = tf.math.reduce_sum(tf.math.abs(tf.math.multiply(test[s:,:], 1-mask_test[s:,:]) - tf.math.multiply(X_hat, 1-mask_test[s:,:])))/count_zeros
+    count_zeros = np.count_nonzero(data_m_test[s:,:] == 0)
+    rmse = tf.sqrt(tf.math.reduce_sum(tf.math.square(tf.math.multiply(test_data[s:,:], 1-data_m_test[s:,:]) - tf.math.multiply(X_hat, 1-data_m_test[s:,:])))/count_zeros)
+    mae = tf.math.reduce_sum(tf.math.abs(tf.math.multiply(test[s:,:], 1-data_m_test[s:,:]) - tf.math.multiply(X_hat, 1-data_m_test[s:,:])))/count_zeros
     rmse = np.array(rmse)
     mae = np.array(mae)
 
