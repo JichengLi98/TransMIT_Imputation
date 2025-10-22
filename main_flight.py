@@ -63,7 +63,7 @@ def main (args):
   print()
   print('RMSE Performance: ' + str(np.round(rmse, 4)) + ', MAE Performance: ' + str(np.round(mae, 4)))
   
-  return rmse, mae, 
+  return rmse, mae
 
 if __name__ == '__main__':  
   
@@ -71,7 +71,7 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument(
       '--data_name',
-      choices=['letter','spam'],
+      choices=['FTD','Boiler'],
       default='spam',
       type=str)
   parser.add_argument(
