@@ -1,3 +1,6 @@
+import numpy as np
+import tensorflow as tf
+
 def split_sequences_TransMIT(sequences, s):
     X, y = list(),list()
     for i in range(len(sequences)):
