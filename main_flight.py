@@ -65,6 +65,17 @@ def main (args):
   
   return rmse, mae
 
+  TransMIT_parameters = {'train_size':args.train_size,
+                         'batch_size':args.batch_size,
+                         'lr':args.lr,
+                         'epochs':args.epochs,
+                         'alpha':args.alpha,
+                         's':args.s,
+                         'd_model':args.d_model,
+                         'd_q':args.d_q,
+                         'num_layers':args.num_layers,
+                         'num_heads':args.num_heads}
+
 if __name__ == '__main__':  
   
   # Inputs for the main function
@@ -72,35 +83,65 @@ if __name__ == '__main__':
   parser.add_argument(
       '--data_name',
       choices=['FTD','Boiler'],
-      default='spam',
+      default='FTD',
       type=str)
   parser.add_argument(
       '--miss_rate',
       help='missing data probability',
-      default=0.2,
+      default=0.1,
       type=float)
   parser.add_argument(
+      '--train_size',
+      help='train_size',
+      default= 100,
+      type=int)
+  parser.add_argument(
       '--batch_size',
-      help='the number of samples in mini-batch',
+      help='batch_size',
+      default=100,
+      type=int)
+  parser.add_argument(
+      '--lr',
+      help='lr',
+      default=0.0005,
+      type=float)
+  parser.add_argument(
+      '--epochs',
+      help='epochs',
+      default=200,
+      type=int)
+  parser.add_argument(
+      '--alpha',
+      help='alpha',
+      default=0.5,
+      type=float)
+  parser.add_argument(
+      '--s',
+      help='s',
+      default=16,
+      type=float)
+  parser.add_argument(
+      '--d_model',
+      help='d_model',
       default=128,
       type=int)
   parser.add_argument(
-      '--hint_rate',
-      help='hint probability',
-      default=0.9,
-      type=float)
+      '--d_q',
+      help='d_q',
+      default=64,
+      type=int)
   parser.add_argument(
-      '--alpha',
-      help='hyperparameter',
-      default=100,
-      type=float)
+      '--num_layers',
+      help='num_layers',
+      default=4,
+      type=int)
   parser.add_argument(
-      '--iterations',
-      help='number of training interations',
-      default=10000,
+      '--num_heads',
+      help='num_heads',
+      default=4,
       type=int)
   
   args = parser.parse_args() 
   
   # Calls main function  
-  imputed_data, rmse = main(args)
+  rmse, mae = main(args)
