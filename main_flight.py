@@ -1,4 +1,3 @@
-
 # Necessary packages
 import argparse
 import numpy as np
@@ -6,7 +5,6 @@ from sklearn.preprocessing import StandardScaler
 from data_loader import data_loader
 from TransMIT import TransMIT
 from utils import split_sequences_TransMIT, train_test_split, online_imputation
-
 
 def main (args):
   '''Main function for UCI letter and spam datasets.
