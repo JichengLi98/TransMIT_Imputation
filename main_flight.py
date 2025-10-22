@@ -55,6 +55,7 @@ def main (args):
   model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
   # Evaluate the model performance on the test datast
+  s = args.s
   rmse, mae = online_imputation(test_data,data_m_test,s)
   
   print()
