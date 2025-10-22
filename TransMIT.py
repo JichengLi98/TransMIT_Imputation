@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 from utils import split_sequences_TransMIT
 
 def TransMIT(train_data, missing_matrix, TransMIT_parameters):
