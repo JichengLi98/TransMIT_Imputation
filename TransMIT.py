@@ -37,7 +37,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   num_features = train_data.shape[1]
 
   #
-  train_mask = train*missing_train
+  train_mask = train_data*missing_train
   train_x, train_y = split_sequences_TransMIT(train_data, s)
   train_x[:,-1,:] = train_mask[s:,:]  
     
