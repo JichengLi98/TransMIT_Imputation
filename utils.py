@@ -38,7 +38,7 @@ def online_imputation(model, test_data,data_m_test,s):
       x_hat = model.predict(x)[:,:test_data.shape[1]]
       X_hat.append(x_hat)
       #updating
-      test_copy[i+s,:] = tf.math.multiply(test_copy[i+s,:],data_m_test[i+s,:]) + tf.math.multiply(x_hat,1-data_m_test[i+n_steps,:])
+      test_copy[i+s,:] = tf.math.multiply(test_copy[i+s,:],data_m_test[i+s,:]) + tf.math.multiply(x_hat,1-data_m_test[i+s,:])
     X_hat = np.array(X_hat) 
     X_hat = X_hat.reshape((X_hat.shape[0],X_hat.shape[2]))    
 
