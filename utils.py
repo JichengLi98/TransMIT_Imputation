@@ -21,10 +21,34 @@ def train_test_split(data, missing_matrix, train_size,s):
   #sliding window
   train_x, train_y = split_sequences_TransMIT(train, n_steps)
   train_x[:,-1,:] = train_mask[n_steps:,:] 
-return train_x, train_y, test, test_mask
+  return train_x, train_y, test, test_mask
 
 
+  #online imputation
+def online_imputation(test_data,data_m_test,s):
+    data_m_test = tf.cast(data_m_test, tf.float32)
+    test_mask = test_data*data_m_test
+    test_copy = test_data.copy()
+    X_hat = list()
+    for i in range(test_data.shape[0]-s):
+      print(i)
+      x = test_copy[i:i+s+1,:]
+      x = x.reshape((1,x.shape[0],x.shape[1]))
+      x[:,-1,:] = test_mask[i+s,:]
+      x_hat = model.predict(x)[:,:test.shape[1]]
+      X_hat.append(x_hat)
+      #updating
+      test_copy[i+s,:] = tf.math.multiply(test_copy[i+s,:],data_m_test[i+s,:]) + tf.math.multiply(x_hat,1-data_m_test[i+n_steps,:])
+    X_hat = np.array(X_hat) #3d
+    X_hat = X_hat.reshape((X_hat.shape[0],X_hat.shape[2]))    
 
+    count_zeros = np.count_nonzero(mask_test[s:,:] == 0)
+    rmse = tf.sqrt(tf.math.reduce_sum(tf.math.square(tf.math.multiply(test_data[s:,:], 1-mask_test[s:,:]) - tf.math.multiply(X_hat, 1-mask_test[s:,:])))/count_zeros)
+    mae = tf.math.reduce_sum(tf.math.abs(tf.math.multiply(test[s:,:], 1-mask_test[s:,:]) - tf.math.multiply(X_hat, 1-mask_test[s:,:])))/count_zeros
+    rmse = np.array(rmse)
+    mae = np.array(mae)
+
+    return rmse, mae, X_hat
 
 
 
