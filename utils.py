@@ -25,7 +25,7 @@ def train_test_split(data, missing_matrix, train_size,s):
   train_x[:,-1,:] = train_mask[n_steps:,:] 
   return train_x, train_y, test, test_mask
 
-def online_imputation(test_data,data_m_test,s):
+def online_imputation(model, test_data,data_m_test,s):
     data_m_test = tf.cast(data_m_test, tf.float32)
     test_mask = test_data*data_m_test
     test_copy = test_data.copy()
