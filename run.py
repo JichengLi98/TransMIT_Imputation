@@ -64,6 +64,7 @@ def main (args):
   rmse, mae = online_imputation(model,data_test,data_m_test,s)
   
   print()
+  print('missing rate:' + str(miss_rate))
   print('RMSE Performance: ' + str(np.round(rmse, 3)) + ', MAE Performance: ' + str(np.round(mae, 3)))
   
   return rmse, mae
