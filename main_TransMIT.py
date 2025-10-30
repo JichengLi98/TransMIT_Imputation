@@ -118,17 +118,17 @@ if __name__ == '__main__':
   parser.add_argument(
       '--d_q',
       help='d_q',
-      default=64,
+      default=128,
       type=int)
   parser.add_argument(
       '--num_layers',
       help='num_layers',
-      default=4,
+      default=2,
       type=int)
   parser.add_argument(
       '--num_heads',
       help='num_heads',
-      default=4,
+      default=8,
       type=int)
   
   args = parser.parse_args() 
