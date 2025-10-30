@@ -1,3 +1,5 @@
+export CUDA_VISIBLE_DEVICES=0
+
 python -u run.py \
   --data_name 'FTD' \
   --miss_rate 0.1 \
