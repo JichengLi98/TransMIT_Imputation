@@ -113,7 +113,7 @@ if __name__ == '__main__':
       '--s',
       help='s',
       default=16,
-      type=float)
+      type=int)
   parser.add_argument(
       '--d_model',
       help='d_model',
