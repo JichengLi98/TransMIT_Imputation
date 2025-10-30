@@ -8,5 +8,5 @@ python -u run.py \
   --s 16 \
   --d_model 128 \
   --d_q 128 \
-  --num_layers 2 \
-  --num_heads 8
+  --num_layers 4 \
+  --num_heads 4
