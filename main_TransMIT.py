@@ -1,5 +1,6 @@
 # Necessary packages
 import argparse
+import random
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from data_loader import data_loader
@@ -64,6 +65,13 @@ def main (args):
   return rmse, mae
 
 if __name__ == '__main__':  
+  fix_seed = 2025
+  # Fix Python built-in random seed
+  random.seed(fix_seed)
+  # Fix NumPy random seed
+  np.random.seed(fix_seed)
+  # Fix TensorFlow random seed
+  tf.random.set_seed(fix_seed)
   
   # Inputs for the main function
   parser = argparse.ArgumentParser()
