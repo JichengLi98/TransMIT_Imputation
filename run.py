@@ -78,6 +78,16 @@ if __name__ == '__main__':
   # Fix TensorFlow random seed
   tf.random.set_seed(fix_seed)
   
+  # Enable GPU memory growth
+  gpus = tf.config.list_physical_devices('GPU')
+  if gpus:
+      try:
+          for gpu in gpus:
+              tf.config.experimental.set_memory_growth(gpu, True)
+          print("GPUs found and memory growth enabled")
+      except RuntimeError as e:
+          print(e)
+    
   # Inputs for the main function
   parser = argparse.ArgumentParser()
   parser.add_argument(
@@ -139,4 +149,12 @@ if __name__ == '__main__':
   args = parser.parse_args() 
   
   # Calls main function  
-  rmse, mae = main(args)
+  if gpus:
+      device_name = '/GPU:0'
+  else:
+      device_name = '/CPU:0'
+
+  with tf.device(device_name):
+      rmse, mae = main(args)  
+  #rmse, mae = main(args)
+
