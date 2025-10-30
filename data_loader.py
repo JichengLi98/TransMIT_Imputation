@@ -19,11 +19,12 @@ def data_loader(data_name, miss_rate):
   
   # Load data
   file_name = 'data/'+data_name+'.csv'
-  missing_file_name = f'missing/{data_name}_{int(miss_rate * 100)}.csv'
+  #missing_file_name = f'missing/{data_name}_{int(miss_rate * 100)}.csv'
   data_x = np.loadtxt(file_name, delimiter=",", encoding='utf-8-sig')     # no header
-  data_m = np.loadtxt(missing_file_name, delimiter=",", encoding='utf-8-sig')
+  #data_m = np.loadtxt(missing_file_name, delimiter=",", encoding='utf-8-sig')
 
-  return data_x, data_m
+  #return data_x, data_m
+  return data_x
 
   
 
