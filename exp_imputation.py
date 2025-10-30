@@ -56,7 +56,7 @@ class Exp_Imputation(Exp_Basic):
                 mask[mask > self.args.mask_rate] = 1  # remained
                 inp = batch_x.masked_fill(mask == 0, 0)
 
-                outputs = self.model(inp, batch_x_mark, None, None, mask)
+                outputs = self.model(inp, None, None, None, mask)
 
                 f_dim = -1 if self.args.features == 'MS' else 0
                 outputs = outputs[:, :, f_dim:]
@@ -112,7 +112,7 @@ class Exp_Imputation(Exp_Basic):
                 mask[mask > self.args.mask_rate] = 1  # remained
                 inp = batch_x.masked_fill(mask == 0, 0)
 
-                outputs = self.model(inp, batch_x_mark, None, None, mask)
+                outputs = self.model(inp, None, None, None, mask)
 
                 f_dim = -1 if self.args.features == 'MS' else 0
                 outputs = outputs[:, :, f_dim:]
@@ -180,7 +180,7 @@ class Exp_Imputation(Exp_Basic):
                 inp = batch_x.masked_fill(mask == 0, 0)
 
                 # imputation
-                outputs = self.model(inp, batch_x_mark, None, None, mask)
+                outputs = self.model(inp, None, None, None, mask)
 
                 # eval
                 f_dim = -1 if self.args.features == 'MS' else 0
