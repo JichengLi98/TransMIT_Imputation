@@ -4,7 +4,7 @@
 # Necessary packages
 import numpy as np
 
-def data_loader(data_name, miss_rate):
+def data_loader(data_name):
   '''Loads datasets and introduce missingness.
   
   Args:
