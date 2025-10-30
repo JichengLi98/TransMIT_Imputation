@@ -7,6 +7,6 @@ python -u run.py \
   --alpha 0.5 \
   --s 16 \
   --d_model 128 \
-  --d_q 128 \
+  --d_q 64 \
   --num_layers 4 \
   --num_heads 4
