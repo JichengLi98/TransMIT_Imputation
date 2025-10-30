@@ -127,12 +127,12 @@ if __name__ == '__main__':
   parser.add_argument(
       '--num_layers',
       help='num_layers',
-      default=2,
+      default=4,
       type=int)
   parser.add_argument(
       '--num_heads',
       help='num_heads',
-      default=8,
+      default=4,
       type=int)
   
   args = parser.parse_args() 
