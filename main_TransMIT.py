@@ -14,7 +14,7 @@ def main (args):
   Args:
     - data_name: letter or spam
     - miss_rate: probability of missing components
-    - batch:size: batch size
+    - batch_size: batch size
     - hint_rate: hint rate
     - alpha: hyperparameter
     - iterations: iterations
@@ -28,8 +28,11 @@ def main (args):
   miss_rate = args.miss_rate
   
   # Load data and introduce missingness
-  data_x, data_m = data_loader(data_name, miss_rate)
-
+  #data_x, data_m = data_loader(data_name, miss_rate)
+  data_x = data_loader(data_name)
+  data_m = np.random.rand(*data_x.shape) < mask_rate
+  data_m = data_m.astype(float)
+  
   # data preprocessing
   train_size = int(round(data_x.shape[0] * 0.8))
   train_data = data_x[:train_size, :]
