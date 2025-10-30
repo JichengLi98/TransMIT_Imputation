@@ -1,6 +1,7 @@
 # Necessary packages
 import argparse
 import random
+import tensorflow as tf
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from data_loader import data_loader
