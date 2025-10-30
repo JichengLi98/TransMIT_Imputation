@@ -42,18 +42,22 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   train_mask = train_data*missing_matrix
   train_x, train_y = split_sequences_TransMIT(train_data, s)
   train_x[:,-1,:] = train_mask[s:,:]  
-  train_train_size = int(round(train_size/8*6))
-  train_train_x = train_x[:train_train_size]
-  train_train_y = train_y[:train_train_size]
-  train_val_x = train_x[train_train_size:]
-  train_val_y = train_y[train_train_size:]  
+  # train_train_size = int(round(train_size/8*6))
+  # train_train_x = train_x[:train_train_size]
+  # train_train_y = train_y[:train_train_size]
+  # train_val_x = train_x[train_train_size:]
+  # train_val_y = train_y[train_train_size:]  
   
   # shuffle the training dataset
-  indices = tf.range(start=0, limit=tf.shape(train_train_x)[0], dtype=tf.int32)
+  # indices = tf.range(start=0, limit=tf.shape(train_train_x)[0], dtype=tf.int32)
+  # shuffled_indices = tf.random.shuffle(indices)
+  # train_train_x = tf.gather(train_train_x,shuffled_indices)
+  # train_train_y = tf.gather(train_train_y,shuffled_indices)
+  indices = tf.range(start=0, limit=tf.shape(train_x)[0], dtype=tf.int32)
   shuffled_indices = tf.random.shuffle(indices)
-  train_train_x = tf.gather(train_train_x,shuffled_indices)
-  train_train_y = tf.gather(train_train_y,shuffled_indices)
-    
+  train_x = tf.gather(train_x,shuffled_indices)
+  train_y = tf.gather(train_y,shuffled_indices)
+  
   # Define the input and output data
   inputs = tf.keras.layers.Input(shape=(seq_length, num_features))
   mask = tf.keras.layers.Lambda(lambda x: tf.cast(tf.math.not_equal(x, 0), tf.float32))(inputs)
@@ -100,9 +104,9 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', mode='min', verbose=1,patience=5)
   # Train the model
   Epochs = epochs
-  #trainsize = int(round(train_x.shape[0] * 0.8)/Epochs)*Epochs
-  # history = model.fit(train_x[:trainsize], train_y[:trainsize], batch_size=batch_size, epochs=Epochs, validation_data=(train_x[trainsize:], train_y[trainsize:]),
-  #                     validation_batch_size=Epochs,callbacks=[es],verbose=0)
-  history = model.fit(train_train_x, train_train_y, batch_size=batch_size, epochs=Epochs, validation_data=(train_val_x, train_val_y),
-                      validation_batch_size=Epochs,callbacks=[es],verbose=0)  
+  trainsize = int(round(train_x.shape[0] * 0.8)/Epochs)*Epochs
+  history = model.fit(train_x[:trainsize], train_y[:trainsize], batch_size=batch_size, epochs=Epochs, validation_data=(train_x[trainsize:], train_y[trainsize:]),
+                      validation_batch_size=Epochs,callbacks=[es],verbose=0)
+  # history = model.fit(train_train_x, train_train_y, batch_size=batch_size, epochs=Epochs, validation_data=(train_val_x, train_val_y),
+  #                     validation_batch_size=Epochs,callbacks=[es],verbose=0)  
   return model 
