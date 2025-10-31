@@ -107,7 +107,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   Epochs = epochs
   trainsize = int(round(train_x.shape[0] * 0.8)/Epochs)*Epochs
   history = model.fit(train_x[:trainsize], train_y[:trainsize], batch_size=batch_size, epochs=Epochs, validation_data=(train_x[trainsize:], train_y[trainsize:]),
-                      validation_batch_size=Epochs,callbacks=[es],verbose=1)
+                      validation_batch_size=Epochs,callbacks=[es],verbose=0)
   # history = model.fit(train_train_x, train_train_y, batch_size=batch_size, epochs=Epochs, validation_data=(train_val_x, train_val_y),
   #                     validation_batch_size=Epochs,callbacks=[es],verbose=0)  
   return model 
