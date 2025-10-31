@@ -48,7 +48,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   train_val_x = train_x[train_train_size:]
   train_val_y = train_y[train_train_size:]  
   
-  shuffle the training dataset
+  #shuffle the training dataset
   indices = tf.range(start=0, limit=tf.shape(train_train_x)[0], dtype=tf.int32)
   shuffled_indices = tf.random.shuffle(indices)
   train_train_x = tf.gather(train_train_x,shuffled_indices)
