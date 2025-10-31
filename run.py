@@ -28,10 +28,10 @@ def main (args):
   miss_rate = args.miss_rate
   
   # Load data and introduce missingness
-  #data_x, data_m = data_loader(data_name, miss_rate)
-  data_x = data_loader(data_name)
-  data_m = np.random.rand(*data_x.shape) > miss_rate
-  data_m = data_m.astype(float)
+  data_x, data_m = data_loader(data_name, miss_rate)
+  #data_x = data_loader(data_name)
+  #data_m = np.random.rand(*data_x.shape) > miss_rate
+  #data_m = data_m.astype(float)
   
   # data preprocessing
   s = args.s
