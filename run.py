@@ -34,11 +34,12 @@ def main (args):
   data_m = data_m.astype(float)
   
   # data preprocessing
+  s = args.s
   train_size = int(round(data_x.shape[0] * 0.8))
   train_data = data_x[:train_size, :]
-  test_data = data_x[train_size:, :]
+  test_data = data_x[train_size-s:, :]  #
   data_m_train = data_m[:train_size, :]
-  data_m_test = data_m[train_size:, :]
+  data_m_test = data_m[train_size-s:, :]
   test_mask = test_data*data_m_test 
 
   # z-score normalizaiton
@@ -60,7 +61,6 @@ def main (args):
   model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
   # Evaluate the model performance on the test datast
-  s = args.s
   rmse, mae = online_imputation(model,data_test,data_m_test,s)
   
   print()
