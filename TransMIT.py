@@ -89,19 +89,19 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
 
   model = tf.keras.models.Model(inputs=inputs, outputs=outputs)
     
-  def RMSE_TransMIT(y_true, y_pred):
+  def MSE_TransMIT(y_true, y_pred):
     n = y_true.shape[-1]
     mask = y_pred[:,n:]
     total_elements = tf.cast(tf.size(mask), tf.float32)
     count_nonzeros = tf.math.count_nonzero(mask,dtype=tf.float32)
     count_zeros = total_elements-count_nonzeros
-    reconstruction_loss = tf.sqrt(tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, mask) - tf.math.multiply(y_pred[:,:n], mask)))*total_elements/count_nonzeros)
-    imputation_loss = tf.sqrt(tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, 1-mask) - tf.math.multiply(y_pred[:,:n], 1-mask)))*total_elements/count_zeros)
+    reconstruction_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, mask) - tf.math.multiply(y_pred[:,:n], mask)))*total_elements/count_nonzeros
+    imputation_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, 1-mask) - tf.math.multiply(y_pred[:,:n], 1-mask)))*total_elements/count_zeros
     loss = alpha*reconstruction_loss+(1-alpha)*imputation_loss
     return loss
       
   adam = tf.keras.optimizers.Adam(learning_rate=lr)
-  model.compile(loss= RMSE_TransMIT, optimizer=adam)
+  model.compile(loss= MSE_TransMIT, optimizer=adam)
   es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', mode='min', verbose=1,patience=5)
   # Train the model
   Epochs = epochs
