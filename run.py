@@ -61,11 +61,11 @@ def main (args):
   model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
   # Evaluate the model performance on the test datast
-  rmse, mae = online_imputation(model,data_test,data_m_test,s)
+  mse, mae = online_imputation(model,data_test,data_m_test,s)
   
   print()
   print('missing rate:' + str(miss_rate))
-  print('RMSE Performance: ' + str(np.round(rmse, 3)) + ', MAE Performance: ' + str(np.round(mae, 3)))
+  print('MSE Performance: ' + str(np.round(mse, 3)) + ', MAE Performance: ' + str(np.round(mae, 3)))
   
   return rmse, mae
 
