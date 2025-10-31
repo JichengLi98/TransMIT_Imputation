@@ -31,7 +31,7 @@ def online_imputation(model,test_data,data_m_test,s):
     test_copy = test_data.copy()
     X_hat = list()
     for i in range(test_data.shape[0]-s):
-      print(i)
+      #print(i)
       x = test_copy[i:i+s+1,:]
       x = x.reshape((1,x.shape[0],x.shape[1]))
       x[:,-1,:] = test_mask[i+s,:]
