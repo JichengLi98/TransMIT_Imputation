@@ -70,26 +70,10 @@ def main (args):
   return rmse, mae
 
 if __name__ == '__main__':  
-  fix_seed = 2025
-  # Fix Python built-in random seed
-  random.seed(fix_seed)
-  # Fix NumPy random seed
-  np.random.seed(fix_seed)
-  # Fix TensorFlow random seed
-  tf.random.set_seed(fix_seed)
   
-  # Enable GPU memory growth
-  gpus = tf.config.list_physical_devices('GPU')
-  if gpus:
-      try:
-          for gpu in gpus:
-              tf.config.experimental.set_memory_growth(gpu, True)
-          print("GPUs found and memory growth enabled")
-      except RuntimeError as e:
-          print(e)
-    
   # Inputs for the main function
   parser = argparse.ArgumentParser()
+  parser.add_argument('--fix_seed', type=int, default=2025)
   parser.add_argument(
       '--data_name',
       choices=['FTD','Boiler'],
@@ -148,13 +132,11 @@ if __name__ == '__main__':
   
   args = parser.parse_args() 
   
-  # Calls main function  
-  if gpus:
-      device_name = '/GPU:0'
-  else:
-      device_name = '/CPU:0'
-
-  with tf.device(device_name):
-      rmse, mae = main(args)  
-  #rmse, mae = main(args)
+  fix_seed = 202501
+  random.seed(fix_seed)
+  np.random.seed(fix_seed)
+  tf.random.set_seed(fix_seed)
+  print(f"Running with seed = {fix_seed}")
+ 
+  rmse, mae = main(args)
 
