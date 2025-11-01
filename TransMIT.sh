@@ -1,5 +1,7 @@
 export CUDA_VISIBLE_DEVICES=0
 
+fix_seed=${1:-2025}  # default = 2025 if no argument provided
+
 # python -u run.py \
 #   --data_name 'FTD' \
 #   --miss_rate 0.1 \
