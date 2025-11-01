@@ -132,7 +132,7 @@ if __name__ == '__main__':
   
   args = parser.parse_args() 
   
-  fix_seed = 202501
+  fix_seed = args.fix_seed
   random.seed(fix_seed)
   np.random.seed(fix_seed)
   tf.random.set_seed(fix_seed)
