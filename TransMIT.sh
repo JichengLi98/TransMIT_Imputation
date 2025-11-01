@@ -3,6 +3,7 @@ export CUDA_VISIBLE_DEVICES=0
 fix_seed=${1:-2025}  # default = 2025 if no argument provided
 
 # python -u run.py \
+#   --fix_seed $fix_seed \
 #   --data_name 'FTD' \
 #   --miss_rate 0.1 \
 #   --batch_size 100\
@@ -16,6 +17,7 @@ fix_seed=${1:-2025}  # default = 2025 if no argument provided
 #   --num_heads 4
 
 # python -u run.py \
+#   --fix_seed $fix_seed \
 #   --data_name 'FTD' \
 #   --miss_rate 0.2 \
 #   --batch_size 100\
@@ -29,6 +31,7 @@ fix_seed=${1:-2025}  # default = 2025 if no argument provided
 #   --num_heads 4
 
 #   python -u run.py \
+#   --fix_seed $fix_seed \
 #   --data_name 'FTD' \
 #   --miss_rate 0.3 \
 #   --batch_size 100\
@@ -42,6 +45,7 @@ fix_seed=${1:-2025}  # default = 2025 if no argument provided
 #   --num_heads 4
 
 #   python -u run.py \
+#   --fix_seed $fix_seed \
 #   --data_name 'FTD' \
 #   --miss_rate 0.4 \
 #   --batch_size 100\
@@ -54,7 +58,8 @@ fix_seed=${1:-2025}  # default = 2025 if no argument provided
 #   --num_layers 4 \
 #   --num_heads 4
 
-  python -u run.py \
+python -u run.py \
+  --fix_seed $fix_seed \
   --data_name 'FTD' \
   --miss_rate 0.5 \
   --batch_size 100\
