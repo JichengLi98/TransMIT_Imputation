@@ -97,7 +97,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
     count_zeros = total_elements-count_nonzeros
     reconstruction_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, mask) - tf.math.multiply(y_pred[:,:n], mask)))*total_elements/count_nonzeros
     imputation_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, 1-mask) - tf.math.multiply(y_pred[:,:n], 1-mask)))*total_elements/count_zeros
-    loss = alpha*reconstruction_loss+(1-alpha)*imputation_loss
+    loss = 0.5*reconstruction_loss+(1-0.5)*imputation_loss
     return loss
       
   adam = tf.keras.optimizers.Adam(learning_rate=lr)
