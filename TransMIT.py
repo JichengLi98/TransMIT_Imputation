@@ -79,7 +79,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
       ffn_output = tf.keras.layers.Dense(d_model)(x_t)
       x_t = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x_t + ffn_output)
 
-  #x = tf.keras.layers.Dense(num_features)(x)
+  x = tf.keras.layers.Dense(num_features)(x)
   x_t = tf.keras.layers.Dense(seq_length)(x_t)
   x_t = tf.keras.layers.Permute((2, 1))(x_t)
   outputs = tf.keras.layers.Concatenate(axis=-1)([x, x_t])
@@ -97,7 +97,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
     count_zeros = total_elements-count_nonzeros
     reconstruction_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, mask) - tf.math.multiply(y_pred[:,:n], mask)))*total_elements/count_nonzeros
     imputation_loss = tf.math.reduce_mean(tf.math.square(tf.math.multiply(y_true, 1-mask) - tf.math.multiply(y_pred[:,:n], 1-mask)))*total_elements/count_zeros
-    loss = 0.5*reconstruction_loss+(1-0.5)*imputation_loss
+    loss = alpha*reconstruction_loss+(1-alpha)*imputation_loss
     return loss
       
   adam = tf.keras.optimizers.Adam(learning_rate=lr)
