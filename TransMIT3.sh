@@ -58,16 +58,16 @@ python -u run.py \
 #   --num_layers 4 \
 #   --num_heads 4
 
-python -u run.py \
-  --fix_seed $fix_seed \
-  --data_name 'FTD' \
-  --miss_rate 0.5 \
-  --batch_size 100\
-  --lr 0.0005 \
-  --epochs 200 \
-  --alpha 0.5 \
-  --s 16 \
-  --d_model 128 \
-  --d_q 64 \
-  --num_layers 4 \
-  --num_heads 4
+# python -u run.py \
+#   --fix_seed $fix_seed \
+#   --data_name 'FTD' \
+#   --miss_rate 0.5 \
+#   --batch_size 100\
+#   --lr 0.0005 \
+#   --epochs 200 \
+#   --alpha 0.5 \
+#   --s 16 \
+#   --d_model 128 \
+#   --d_q 64 \
+#   --num_layers 4 \
+#   --num_heads 4
