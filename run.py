@@ -102,7 +102,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--alpha',
       help='alpha',
-      default=0.5,
+      default=0,
       type=float)
   parser.add_argument(
       '--s',
