@@ -79,7 +79,7 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
       ffn_output = tf.keras.layers.Dense(d_model)(x_t)
       x_t = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x_t + ffn_output)
 
-  x = tf.keras.layers.Dense(num_features)(x)
+  #x = tf.keras.layers.Dense(num_features)(x)
   x_t = tf.keras.layers.Dense(seq_length)(x_t)
   x_t = tf.keras.layers.Permute((2, 1))(x_t)
   outputs = tf.keras.layers.Concatenate(axis=-1)([x, x_t])
