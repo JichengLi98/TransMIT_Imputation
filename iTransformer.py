@@ -42,17 +42,6 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   train_mask = train_data*missing_matrix
   train_x, train_y = split_sequences_TransMIT(train_data, s)
   train_x[:,-1,:] = train_mask[s:,:]  
-  # train_train_size = int(round(train_size/8*6))
-  # train_train_x = train_x[:train_train_size]
-  # train_train_y = train_y[:train_train_size]
-  # train_val_x = train_x[train_train_size:]
-  # train_val_y = train_y[train_train_size:]  
-  
-  #shuffle the training dataset
-  # indices = tf.range(start=0, limit=tf.shape(train_train_x)[0], dtype=tf.int32)
-  # shuffled_indices = tf.random.shuffle(indices)
-  # train_train_x = tf.gather(train_train_x,shuffled_indices)
-  # train_train_y = tf.gather(train_train_y,shuffled_indices)
   indices = tf.range(start=0, limit=tf.shape(train_x)[0], dtype=tf.int32)
   shuffled_indices = tf.random.shuffle(indices)
   train_x = tf.gather(train_x,shuffled_indices)
@@ -62,28 +51,18 @@ def TransMIT(train_data, missing_matrix, TransMIT_parameters):
   inputs = tf.keras.layers.Input(shape=(seq_length, num_features))
   mask = tf.keras.layers.Lambda(lambda x: tf.cast(tf.math.not_equal(x, 0), tf.float32))(inputs)
   mask = mask[:,-1,:]
-  Inputs = tf.keras.layers.Dense(d_model)(inputs)
   Inputs_t = tf.keras.layers.Permute((2, 1))(inputs)
   Inputs_t = tf.keras.layers.Dense(d_model)(Inputs_t)
-  x = Inputs
   x_t = Inputs_t
-  for i in range(num_layers):
-      attn_output = tf.keras.layers.MultiHeadAttention(num_heads=num_heads, key_dim= d_q, value_dim=d_q, dropout=0.1)(x, x, x, attention_mask=None)
-      x = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x + attn_output)
-      ffn_output = tf.keras.layers.Dense(d_model)(x)
-      x = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x + ffn_output)
-      #x = tf.keras.layers.Dense(d_model)(x)
   for i in range(num_layers):
       attn_output = tf.keras.layers.MultiHeadAttention(num_heads=num_heads, key_dim=d_q, value_dim=d_q, dropout=0.1)(x_t, x_t, x_t, attention_mask=None)
       x_t = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x_t + attn_output)
       ffn_output = tf.keras.layers.Dense(d_model)(x_t)
       x_t = tf.keras.layers.LayerNormalization(epsilon=1e-6)(x_t + ffn_output)
-
-  x = tf.keras.layers.Dense(num_features)(x)
+    
   x_t = tf.keras.layers.Dense(seq_length)(x_t)
   x_t = tf.keras.layers.Permute((2, 1))(x_t)
-  outputs = tf.keras.layers.Concatenate(axis=-1)([x, x_t])
-  outputs = tf.keras.layers.GlobalAveragePooling1D()(outputs)
+  outputs = tf.keras.layers.GlobalAveragePooling1D()(x_t)
   outputs = tf.keras.layers.Dense(num_features)(outputs)
   outputs = tf.keras.layers.Concatenate(axis=-1)([outputs, mask])
 
