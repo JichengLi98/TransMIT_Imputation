@@ -60,7 +60,7 @@ def main (args):
                          'num_layers':args.num_layers,
                          'num_heads':args.num_heads}  
   # Train model
-  model = iTransformer(data_train, data_m_train, TransMIT_parameters)
+  model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
   # Evaluate the model performance on the test datast
   rmse, mae = online_imputation(model,data_test,data_m_test,s)
