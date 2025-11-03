@@ -5,7 +5,9 @@ import tensorflow as tf
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from data_loader import data_loader
-from TransMIT import TransMIT
+#from TransMIT import TransMIT
+from Transformer import TransMIT
+#from iTransformer import TransMIT
 from utils import split_sequences_TransMIT, train_test_split, online_imputation
 
 def main (args):
