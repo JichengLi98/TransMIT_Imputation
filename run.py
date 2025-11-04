@@ -5,8 +5,8 @@ import tensorflow as tf
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from data_loader import data_loader
-#from TransMIT import TransMIT
-from Transformer import Transformer
+from TransMIT import TransMIT
+#from Transformer import Transformer
 #from iTransformer import iTransformer
 from utils import split_sequences_TransMIT, train_test_split, online_imputation
 
@@ -60,7 +60,7 @@ def main (args):
                          'num_layers':args.num_layers,
                          'num_heads':args.num_heads}  
   # Train model
-  model = Transformer(data_train, data_m_train, TransMIT_parameters)
+  model = TransMIT(data_train, data_m_train, TransMIT_parameters)
   
   # Evaluate the model performance on the test datast
   rmse, mae = online_imputation(model,data_test,data_m_test,s)
