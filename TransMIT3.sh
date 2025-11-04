@@ -38,11 +38,11 @@ python -u run.py \
   --lr 0.0005 \
   --epochs 200 \
   --alpha 0.5 \
-  --s 16 \
+  --s 6 \
   --d_model 128 \
   --d_q 64 \
-  --num_layers 4 \
-  --num_heads 4
+  --num_layers 2 \
+  --num_heads 2
 
 # python -u run.py \
 #   --fix_seed $fix_seed \
