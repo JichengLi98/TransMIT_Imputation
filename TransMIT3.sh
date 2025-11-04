@@ -34,7 +34,7 @@ python -u run.py \
   --fix_seed $fix_seed \
   --data_name 'FTD' \
   --miss_rate 0.3 \
-  --batch_size 100\
+  --batch_size 32\
   --lr 0.0005 \
   --epochs 200 \
   --alpha 0.5 \
